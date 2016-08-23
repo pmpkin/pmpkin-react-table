@@ -1,0 +1,9 @@
+.DS_STORE
+node_modules
+bitsy
+build
+dist
+npm_debug.log
+
+# Test coverage
+.coverage

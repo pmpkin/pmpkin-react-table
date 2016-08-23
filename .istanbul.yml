@@ -1,0 +1,5 @@
+instrumentation:
+    excludes: ['**/spec/**']
+    es-modules: true
+reporting:
+    dir: ./.coverage

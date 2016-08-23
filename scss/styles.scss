@@ -1,0 +1,145 @@
+@import "./variables.scss";
+
+.table.table-default {
+
+    > thead > tr > th {
+        padding: $pmpkin-th-padding;
+        color: $pmpkin-th-color;
+        font-size: $pmpkin-th-font-size;
+		text-transform: uppercase;
+		border-right: none;
+		background: none;
+    }
+
+    > tbody > tr > td {
+        padding: $pmpkin-td-padding;
+        color: $pmpkin-td-color;
+        font-size: $pmpkin-td-font-size;
+        border-bottom: solid 1px #eee;
+		border-right: none;
+		border-top: none;
+
+    }
+
+    &.table-row-selectable {
+
+        > thead > tr > th:nth-child(2)
+        > tbody > tr > td:nth-child(2) {
+            padding-left: 0;
+        }
+
+        > tbody > tr > .table-row-selector-cell {
+            padding: 0 !important;
+    		text-align: center;
+            width: 42px;
+            position: relative;
+
+            .table-row-selector {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                cursor: pointer;
+
+                .mdi {
+    				display: inline-block;
+    				width: 20px;
+    				height: 20px;
+    				background: transparent;
+    				border: solid 1px;
+    				border-radius: 50%;
+    				line-height: 20px;
+    				text-align: center;
+    				font-size: 12px;
+    				color: #6D6D6D;
+    				opacity: 0.3;
+                    margin-top: 12px;
+
+    				&:hover {
+    					color: #0AA5F3;
+    					opacity: 1.0;
+    					background: #fff;
+    				}
+    			}
+            }
+
+        }
+
+    }
+
+
+    &.table-row-images {
+
+        > tbody > tr > .table-row-selector-cell {
+
+            > .table-row-selector {
+                opacity: 0;
+                position: absolute;
+            }
+
+            > .table-row-image {
+                opacity: 1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+
+                .mdi {
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    text-align: center;
+                    color: #B913B0;
+                    margin-top: 12px;
+                    font-size: 16px;
+    			}
+            }
+        }
+        > tbody > tr:hover > .table-row-selector-cell {
+            > .table-row-selector {
+                opacity: 1;
+            }
+
+            > .table-row-image {
+                opacity: 0;
+            }
+
+        }
+    }
+
+    &.table-row-actions {
+        > tbody > tr > .table-row-actions-cell {
+            text-align: right;
+            padding-top: 8px;
+            padding-bottom: 0;
+
+            > .table-row-actions {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+        }
+        > tbody > tr:hover > .table-row-actions-cell {
+            > .table-row-actions {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+
+    &.table-striped > tbody > tr {
+        background-color: #fcfcfc;
+
+        &:nth-of-type(odd) {
+            background-color: #fff;
+        }
+
+        &:hover {
+        	background: #f7f7f7;
+        }
+    }
+}
