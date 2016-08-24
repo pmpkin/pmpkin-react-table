@@ -9,6 +9,7 @@
 		text-transform: uppercase;
 		border-right: none;
 		background: none;
+        user-select: none;
     }
 
     > tbody > tr > td {
@@ -28,7 +29,8 @@
             padding-left: 0;
         }
 
-        > tbody > tr > .table-row-selector-cell {
+        > tbody > tr > .table-row-selector-cell,
+        > thead > tr > .table-row-selector-cell {
             padding: 0 !important;
     		text-align: center;
             width: 42px;
@@ -42,28 +44,73 @@
                 bottom: 0;
                 cursor: pointer;
 
-                .mdi {
-    				display: inline-block;
-    				width: 20px;
-    				height: 20px;
-    				background: transparent;
-    				border: solid 1px;
-    				border-radius: 50%;
-    				line-height: 20px;
-    				text-align: center;
-    				font-size: 12px;
-    				color: #6D6D6D;
-    				opacity: 0.3;
-                    margin-top: 12px;
+                .svg {
+                    position: absolute;
+                    top: 12px;
+                    left: 10px;
+                    transition: fill 0.25s;
+                    &.on {
+                        opacity: 0;
+                        fill: #ccc;
+                    }
+                    &.selected {
+                        opacity: 0;
+                        fill: rgb(13, 173, 255);
 
-    				&:hover {
-    					color: #0AA5F3;
-    					opacity: 1.0;
-    					background: #fff;
-    				}
-    			}
+                        &:hover {
+                            fill: #0ca1ed;
+                        }
+                    }
+                    &.off {
+                        opacity: 1;
+                        fill: #ccc;
+                    }
+                }
+
+                &:hover {
+                    .svg.on {
+                        opacity: 1;
+                        fill: #888;
+                    }
+                    .svg.off {
+                        opacity: 0;
+                        fill: #888;
+                    }
+                }
             }
 
+            &.head .table-row-selector .svg {
+                top: 7px;
+
+                &.select-all {
+                    opacity: 1;
+                    fill: #ccc;
+
+                    &:hover {
+                        fill: rgb(13, 173, 255);
+                    }
+                }
+            }
+
+        }
+
+        > tbody > tr.selected {
+            background: rgba(26, 190, 247, 0.08) !important;
+
+            > .table-row-selector-cell {
+
+                .table-row-selector {
+                    .svg.on {
+                        opacity: 0;
+                    }
+                    .svg.off {
+                        opacity: 0;
+                    }
+                    .svg.selected {
+                        opacity: 1;
+                    }
+                }
+            }
         }
 
     }
@@ -114,12 +161,32 @@
     &.table-row-actions {
         > tbody > tr > .table-row-actions-cell {
             text-align: right;
-            padding-top: 8px;
-            padding-bottom: 0;
+            padding: 0;
 
             > .table-row-actions {
+                display: block;
+                width: 100%;
+                height: 100%;
                 opacity: 0;
                 pointer-events: none;
+
+                a {
+                    display: block;
+                    padding-top: 12px;
+                    padding: 12px 10px 9px 10px;
+                    text-align: center;
+                    cursor: pointer;
+
+                    .svg {
+                        fill: rgba(13, 173, 255, 0.5);
+                    }
+
+                    &:hover {
+                        .svg {
+                            fill: rgb(13, 173, 255);
+                        }
+                    }
+                }
             }
 
         }

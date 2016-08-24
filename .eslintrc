@@ -11,6 +11,7 @@
     "semi": 0,
     "no-useless-constructor": 0,
     "comma-dangle": 0,
+    "arrow-body-style": 0,
     "no-param-reassign": 0,
     "no-unused-vars": 1,
     "no-reserved-keys": 0,
@@ -19,7 +20,10 @@
     "react/prop-types": 0,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
+    "react/jsx-indent-props": 0,
     "react/react-in-jsx-scope": 2,
+    "react/jsx-indent": [0, 'tab'],
+    "import/no-extraneous-dependencies": [0, {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}],
     "no-console": 0,
     "block-scoped-var": 0,
     "padded-blocks": 0,
@@ -32,10 +36,5 @@
     ],
     "globals": {
         "NODE_ENV": true,
-        "__DEVTOOLS__": true,
-        "__AUTHTOKEN__": true,
-        "__VERSION__": true,
-        "__ENV__": true,
-        "__BASE_URL__": true
     }
 }

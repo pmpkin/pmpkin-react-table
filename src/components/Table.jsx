@@ -1,5 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
+import CheckCircleOutline from '../svg/check-circle-outline.svg';
+import CheckCircle from '../svg/check-circle.svg';
+import CheckBoxBlankCircleOutline from '../svg/checkbox-blank-circle-outline.svg';
+import TableRowSelector from './TableRowSelector';
+import CheckSelectAll from '../svg/checkbox-multiple-marked-circle-outline.svg';
 
 export default class Table extends Component {
 
@@ -14,8 +19,19 @@ export default class Table extends Component {
         renderTableRowImage: PropTypes.func,
         onRowClick: PropTypes.func,
         onRowSelected: PropTypes.func,
-        onSelectAll: PropTypes.func,
-        selection: PropTypes.object
+        onSelectAllRows: PropTypes.func,
+        isRowSelected: PropTypes.func
+    }
+
+    static defaultProps = {
+        hasHeader: true,
+        emptyMessage: 'Es wurden keine Einträge gefunden.',
+        loadingMessage: 'Einen Moment bitte...',
+        emptyMessageOnFilter: 'Die Suche erbrachte keine Ergebnisse.'
+    }
+
+    constructor(props) {
+        super(props);
     }
 
     renderHeaderCell(column, key) {
@@ -30,8 +46,10 @@ export default class Table extends Component {
 
     renderSelectAll() {
         return (
-            <th>
-                <a>SEA</a>
+            <th className="table-row-selector-cell head">
+                <a className="table-row-selector" onClick={() => this.props.onSelectAllRows()}>
+                    <CheckSelectAll className="svg select-all" />
+                </a>
             </th>
         )
     }
@@ -41,9 +59,9 @@ export default class Table extends Component {
             <thead>
                 <tr>
                     { this.props.selectable && this.renderSelectAll() }
-                    { !this.props.selectable && this.props.renderTableRowImage && <th></th> }
+                    { !this.props.selectable && this.props.renderTableRowImage && <th /> }
                     { this.props.columns.map((column, index) => this.renderHeaderCell(column, index)) }
-                    { this.props.renderTableRowActions && <th width="100px"></th> }
+                    { this.props.renderTableRowActions && <th /> }
                 </tr>
             </thead>
         )
@@ -60,20 +78,7 @@ export default class Table extends Component {
     }
 
     renderTableRowSelector(entry, index) {
-        return (
-            <td className="table-row-selector-cell">
-                {
-                    this.props.renderTableRowImage && (
-                        <span className="table-row-image">
-                            { this.props.renderTableRowImage(entry, index)}
-                        </span>
-                    )
-                }
-                <span className="table-row-selector">
-                    <span className="mdi mdi-check"></span>
-                </span>
-            </td>
-        )
+        return <TableRowSelector entry={entry} index={index} renderTableRowImage={this.props.renderTableRowImage} select={this.props.onRowSelected} />
     }
 
     renderTableRowActions(entry, index) {
@@ -87,8 +92,11 @@ export default class Table extends Component {
     }
 
     renderTableRow(entry, index) {
+        const cx = classNames({
+            selected: this.props.selectable && this.props.isRowSelected && this.props.isRowSelected(entry, index)
+        });
         return (
-            <tr key={index} onClick={() => this.props.onRowClick(entry.id || entry)}>
+            <tr key={index} className={cx} onClick={() => this.props.onRowClick}>
                 { this.props.selectable && this.renderTableRowSelector(entry, index) }
                 { !this.props.selectable && this.props.renderTableRowImage && <td>{ this.props.renderTableRowImage(entry, index)}</td> }
                 { this.props.columns.map((column, colIndex) => this.renderBodyCell(entry, column, colIndex)) }
@@ -108,15 +116,15 @@ export default class Table extends Component {
     }
 
     renderLoadingMessage() {
-        return <span>{ this.props.loadingMessage || 'Einen Moment bitte...' }</span>;
+        return <span>{ this.props.loadingMessage }</span>;
     }
 
     renderEmptyMessage() {
-        return <span>{ this.props.emptyMessage || 'Es wurden keine Einträge gefunden.' }</span>;
+        return <span>{ this.props.emptyMessage }</span>;
     }
 
     renderFilteredEmptyMessage() {
-        return this.props.emptyMessage || 'Die Suche erbrachte keine Ergebnisse.';
+        return this.props.emptyMessage;
     }
 
     render() {

@@ -1,10 +1,43 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
-
+import { storiesOf } from '@kadira/storybook';
 import TableWrapper from './examples/TableWrapper';
 
 
-storiesOf('TextInput', module)
-    .add('default', () => (
-        <TableWrapper  />
-    ));
+storiesOf('Table', module)
+    .add('default', () => {
+        const columns = [
+            {
+                title: 'Name',
+                value: (entry) => (
+                    <span>
+                        {entry.name}
+                    </span>
+                )
+            },
+            {
+                title: 'Company',
+                value: (entry) => (
+                    <span>
+                        {entry.company}
+                    </span>
+                )
+            },
+            {
+                title: 'Email',
+                value: (entry) => (
+                    <span>
+                        {entry.email}
+                    </span>
+                )
+            }
+        ];
+
+        return <TableWrapper
+                    columns={columns}
+                    selectable
+                    striped
+                    hover
+                    clickable
+                    hasHeader
+                />
+    });

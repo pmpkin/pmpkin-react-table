@@ -37,7 +37,9 @@ module.exports = {
             test: /\.jsx?$/,
             include: path.join(__dirname, 'src'),
             loader: 'babel'
-      }
+      },
+      // react-svg loads svg files as react components
+      { test: /\.svg$/, loader: 'babel!react-svg', include: path.join(__dirname, 'src') },
     ],
   },
   resolve: {

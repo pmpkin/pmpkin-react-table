@@ -1,7 +1,7 @@
 {
   "name": "pmpkin-react-table",
   "version": "0.0.1",
-  "description": "Table component for react",
+  "description": "Simple table component for react (WIP)",
   "main": "lib/index.js",
   "scripts": {
     "build:components": "./node_modules/.bin/webpack",
@@ -53,6 +53,7 @@
     "raw-loader": "^0.5.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-svg-loader": "^1.1.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
