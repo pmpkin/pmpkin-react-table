@@ -1,11 +1,26 @@
 import React from 'react';
 
-import Table from '../../lib';
+import Table from '../../src/';
 import data from './fake-data';
 import CheckCircle from '../../src/svg/check-circle-outline.svg';
 import More from '../../src/svg/dots-horizontal.svg';
 
-class TableWrapper extends React.Component {
+const columns = [
+    {
+        title: 'Name',
+        value: (entry) => (entry.name)
+    },
+    {
+        title: 'Company',
+        value: (entry) => (entry.company)
+    },
+    {
+        title: 'Email',
+        value: (entry) => (entry.email)
+    }
+];
+
+class SelectionTable extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,9 +29,10 @@ class TableWrapper extends React.Component {
             data
         }
         this.onRowSelected = this.onRowSelected.bind(this);
-        this.isSelected = this.isSelected.bind(this);
+        this.isRowSelected = this.isRowSelected.bind(this);
         this.onSelectAll = this.onSelectAll.bind(this);
         this.renderTableRowActions = this.renderTableRowActions.bind(this);
+        this.onActionClicked = this.onActionClicked.bind(this);
     }
 
     onSelectAll() {
@@ -47,18 +63,23 @@ class TableWrapper extends React.Component {
         }));
     }
 
-    isSelected(entry, index) {
+    onActionClicked(e, entry, index, action) {
+        e.stopPropagation();
+        this.props.onActionClicked(entry, index, action);
+    }
+
+    isRowSelected(entry, index) {
         return this.state.selection[index];
     }
 
     renderTableRowActions(entry, index) {
         return (
-            <span style={{display: 'flex'}}>
-            <a>
-                <CheckCircle className="svg"/>
+            <span style={{ display: 'flex' }}>
+            <a onClick={(e) => this.onActionClicked(e, entry, index, 'action 1')}>
+                <CheckCircle className="svg" />
             </a>
-            <a>
-                <More className="svg"/>
+            <a onClick={(e) => this.onActionClicked(e, entry, index, 'action 2')}>
+                <More className="svg" />
             </a>
             </span>
 
@@ -68,18 +89,21 @@ class TableWrapper extends React.Component {
     render() {
         return (
             <div style={{ margin: '30px' }}>
-            <Table
-                {...this.props}
-                data={this.state.data}
-                onSelectAllRows={this.onSelectAll}
-                onRowSelected={this.onRowSelected}
-                isRowSelected={this.isSelected}
-                renderTableRowActions={this.renderTableRowActions}
-                clickable
-            />
+                <Table
+                    {...this.props}
+                    columns={columns}
+                    data={this.state.data}
+                    onSelectAllRows={this.onSelectAll}
+                    onRowSelected={this.onRowSelected}
+                    isRowSelected={this.isRowSelected}
+                    renderTableRowActions={this.renderTableRowActions}
+                    clickable
+                    selectable
+                    hover
+                />
             </div>
-    );
-  }
+        )
+    }
 }
 
-export default TableWrapper;
+export default SelectionTable;

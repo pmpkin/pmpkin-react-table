@@ -209,4 +209,8 @@
         	background: #f7f7f7;
         }
     }
+
+    &.table-clickable > tbody > tr {
+        cursor: pointer;
+    }
 }

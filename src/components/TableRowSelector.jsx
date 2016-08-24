@@ -12,7 +12,7 @@ export default class TableRowSelector extends Component {
 
     onSelect(e) {
         e.stopPropagation();
-        this.props.select(this.props.entry, this.props.index);
+        if (this.props.select) this.props.select(this.props.entry, this.props.index);
     }
 
     render() {
