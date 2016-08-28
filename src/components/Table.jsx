@@ -72,11 +72,9 @@ export default class Table extends Component {
     }
 
     renderBodyCell(entry, column, colIndex) {
-        const isFunction = typeof column.value === 'function';
         return (
             <td key={colIndex}>
-                { isFunction && column.value(entry)}
-                { !isFunction && <span>{entry.doc[column.value]}</span> }
+                { column.value(entry) }
             </td>
         )
     }
